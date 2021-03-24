@@ -16,13 +16,26 @@ let scores;
 let playing;
 //Set Game initial values
 
-playerOneScore.textContent = '0';
-playerTwoScore.textContent = '0';
-dice.classList.add('hidden');
-currentScore = 0;
-activePlayer = 0;
-scores = [0, 0];
-playing = true;
+const init = function () {
+  document.querySelector('.player--1').classList.remove('player--active');
+  document.querySelector('.player--0').classList.add('player--active');
+  document.querySelector('.dice').classList.add('hidden');
+  if (playerOneSec.classList.contains('player--winner')) {
+    playerOneSec.classList.remove('player--winner');
+  } else {
+    playerTwoSec.classList.remove('player--winner');
+  }
+  playerOneScore.textContent = '0';
+  playerTwoScore.textContent = '0';
+  playerOneCurrent.textContent = '0';
+  playerTwoCurrent.textContent = '0';
+  dice.classList.add('hidden');
+  currentScore = 0;
+  activePlayer = 0;
+  scores = [0, 0];
+  playing = true;
+};
+init();
 
 //Sitch Player function
 const switchPlayer = function () {
@@ -66,7 +79,7 @@ btnHold.addEventListener('click', function () {
     document.getElementById(`score--${activePlayer}`).textContent =
       scores[activePlayer];
     //Finish the game when 100 hit
-    if (scores[activePlayer] >= 20) {
+    if (scores[activePlayer] >= 100) {
       playing = false;
       document
         .querySelector(`.player--${activePlayer}`)
@@ -81,3 +94,6 @@ btnHold.addEventListener('click', function () {
     switchPlayer();
   }
 });
+
+//Reseting the game to its initial values
+btnNew.addEventListener('click', init);
